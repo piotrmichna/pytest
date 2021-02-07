@@ -9,7 +9,8 @@ def twitter():
     # scope=module <- czas życia instancji dla całego pliku
     # scope=session <- instancja współdzielona przez wszystkie przypadki testowe
     twitter = Twitter()
-    return twitter
+    yield twitter
+    twitter.delete()
 
 
 def test_tweet_single_message(twitter):
