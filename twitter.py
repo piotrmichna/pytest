@@ -12,5 +12,5 @@ class Twitter(object):
             raise Exception('Message too long.')
         self.tweets.append(message)
 
-    def find_hashtags(self, message):
+    def fand_tags(self, message):
         return [m.lower() for m in re.findall(r"#(\w+)", message)]

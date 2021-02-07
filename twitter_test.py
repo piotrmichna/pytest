@@ -5,8 +5,11 @@ from twitter import Twitter
 
 @pytest.fixture
 def twitter():
+    # def twitter(scope='function') default <- cas życia indywidualnie dla każdej funkcji poniżej
+    # scope=module <- czas życia instancji dla całego pliku
+    # scope=session <- instancja współdzielona przez wszystkie przypadki testowe
     twitter = Twitter()
-    assert twitter
+    return twitter
 
 
 def test_tweet_single_message(twitter):
@@ -29,7 +32,7 @@ def test_tweet_long_message(twitter):
         ('Test message #FIRST #second', ['first', 'second'])
 ))
 def test_tweet_with_hashtag(twitter, message, expected):
-    assert twitter.find_hashtags(message) == expected
+    assert twitter.fand_tags(message) == expected
 
 # PONIŻSZE 3 TESTY ROBIĄ TO SAMO CO 1 POWYŻSZY
 # def test_tweet_with_hashtag():
