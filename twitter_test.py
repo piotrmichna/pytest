@@ -4,17 +4,13 @@ from twitter import Twitter
 
 
 @pytest.fixture
-def twitter(request):
+def twitter():
     # def twitter(scope='function') default <- cas życia indywidualnie dla każdej funkcji poniżej
     # scope=module <- czas życia instancji dla całego pliku
     # scope=session <- instancja współdzielona przez wszystkie przypadki testowe
     twitter = Twitter()
-
-    def fin():
-        twitter.delete()
-
-    request.addfinalizer(fin)
-    return twitter
+    yield twitter
+    twitter.delete()
 
 
 def test_tweet_single_message(twitter):
