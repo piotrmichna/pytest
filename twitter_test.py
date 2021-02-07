@@ -20,3 +20,36 @@ def test_tweet_long_message():
     with pytest.raises(Exception):
         twitter.tweet('test' * 41)
     assert twitter.tweets == []
+
+
+@pytest.mark.parametrize('message, hashtag', (
+        ('Test #first message', 'first'),
+        ('#first Test message', 'first'),
+        ('#FIRST Test message', 'FIRST'),
+        ('Test message #FIRST', 'FIRST'),
+))
+def test_tweet_with_hashtag(message, hashtag):
+    twitter = Twitter()
+    assert hashtag in twitter.find_hashtags(message)
+
+
+# PONIŻSZE 3 TESTY ROBIĄ TO SAMO CO 1 POWYŻSZY
+def test_tweet_with_hashtag():
+    twitter = Twitter()
+    message = 'Test #first message'
+    twitter.tweet(message)
+    assert 'first' in twitter.find_hashtags(message)
+
+
+def test_tweet_hashtag_on_beginning():
+    twitter = Twitter()
+    message = '#first Test message'
+    twitter.tweet(message)
+    assert 'first' in twitter.find_hashtags(message)
+
+
+def test_tweet_hashtag_on_uppercase():
+    twitter = Twitter()
+    message = '#FIRST Test message'
+    twitter.tweet(message)
+    assert 'FIRST' in twitter.find_hashtags(message)
