@@ -3,8 +3,8 @@ import pytest
 from twitter import Twitter
 
 
-@pytest.fixture(params=[None, 'twitter.txt'])
-def twitter(request):
+@pytest.fixture(params=[None, 'twitter.txt'], name='twitter')
+def fixture_twitter(request):
     # def twitter(scope='function') default <- cas życia indywidualnie dla każdej funkcji poniżej
     # scope=module <- czas życia instancji dla całego pliku
     # scope=session <- instancja współdzielona przez wszystkie przypadki testowe
