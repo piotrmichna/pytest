@@ -8,7 +8,7 @@ def twitter():
     # def twitter(scope='function') default <- cas życia indywidualnie dla każdej funkcji poniżej
     # scope=module <- czas życia instancji dla całego pliku
     # scope=session <- instancja współdzielona przez wszystkie przypadki testowe
-    twitter = Twitter()
+    twitter = Twitter(backend='twitter.txt')
     yield twitter
     twitter.delete()
 
