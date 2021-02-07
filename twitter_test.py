@@ -16,6 +16,7 @@ def test_tweet_single_message():
 
 def test_tweet_long_message():
     twitter = Twitter()
+    assert twitter
     with pytest.raises(Exception):
         twitter.tweet('test' * 41)
-
+    assert twitter.tweets == []
